@@ -29,13 +29,17 @@ def main(args: argparse.Namespace) -> None:
     time_history = [h[1] for h in history]
     cost_history = [h[2] for h in history]
 
-    print("Execution time: {:0.3f} ({:0.3f}) seconds".format(
-            _get_mean(time_history),
-            _get_stdev(time_history)))
-    
-    print("Cost of the optimal path: {:0.3f} ({:0.3f})".format(
-            _get_mean(cost_history),
-            _get_stdev(cost_history)))
+    if number_executions > 1:
+        print("Execution time: {:0.3f} ({:0.3f}) seconds".format(
+                _get_mean(time_history),
+                _get_stdev(time_history)))
+        print("Cost of the optimal path: {:0.3f} ({:0.3f})".format(
+                _get_mean(cost_history),
+                _get_stdev(cost_history)))
+
+    else:
+        print("Execution time: {:0.3f} seconds".format(time_history[0]))
+        print("Cost of the optimal path: {:0.3f}".format(cost_history[0]))
 
 
 def _run(strategy_name: str, adjacency_mtrx: np.ndarray) -> None:
@@ -45,7 +49,8 @@ def _run(strategy_name: str, adjacency_mtrx: np.ndarray) -> None:
     return [
         path,
         strategy.exec_time,
-        graph_helper.compute_path_cost(adjacency_mtrx, path)
+        path
+        # graph_helper.compute_path_cost(adjacency_mtrx, path)
     ]
 
 
