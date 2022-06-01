@@ -5,7 +5,7 @@ from pprint import pprint
 
 
 def main(args: argparse.Namespace) -> None:
-    """_summary_
+    """
 
     Args:
         args (argparse.Namespace): _description_
@@ -17,7 +17,7 @@ def main(args: argparse.Namespace) -> None:
     problem = data_helper.load_problems(instance_name)
     adjacency_mtrx = graph_helper.make_adjacency_matrix(problem)
 
-    pprint(type(problem.node_coords))
+    pprint(adjacency_mtrx)
 
     for _ in range(number_executions):
         _run()
