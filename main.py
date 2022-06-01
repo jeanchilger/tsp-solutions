@@ -1,4 +1,5 @@
 import argparse
+import statistics
 
 import numpy as np
 from util import data_helper, graph_helper
@@ -25,7 +26,16 @@ def main(args: argparse.Namespace) -> None:
     for _ in range(number_executions):
         history.append(_run(strategy_name=strategy_name, adjacency_mtrx=adjacency_mtrx))
 
-    pprint(history)
+    time_history = [h[1] for h in history]
+    cost_history = [h[2] for h in history]
+
+    print("Execution time: {:0.3f} ({:0.3f}) seconds".format(
+            _get_mean(time_history),
+            _get_stdev(time_history)))
+    
+    print("Cost of the optimal path: {:0.3f} ({:0.3f})".format(
+            _get_mean(cost_history),
+            _get_stdev(cost_history)))
 
 
 def _run(strategy_name: str, adjacency_mtrx: np.ndarray) -> None:
@@ -37,6 +47,14 @@ def _run(strategy_name: str, adjacency_mtrx: np.ndarray) -> None:
         strategy.exec_time,
         graph_helper.compute_path_cost(adjacency_mtrx, path)
     ]
+
+
+def _get_mean(array: np.ndarray) -> float:
+    return statistics.mean(array)
+
+
+def _get_stdev(array: np.ndarray) -> float:
+    return statistics.stdev(array)
 
 
 if __name__ == "__main__":
