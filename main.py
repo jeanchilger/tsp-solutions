@@ -66,7 +66,7 @@ def write_report(
             csv_writer.writerow([
                 'instance',
                 'algorithm',
-                'distance',
+                'cost',
                 'exec_time',
             ])
 
