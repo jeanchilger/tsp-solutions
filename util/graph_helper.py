@@ -1,3 +1,4 @@
+from pprint import pprint
 import tsplib95
 import numpy as np
 
