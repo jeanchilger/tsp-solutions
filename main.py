@@ -4,37 +4,45 @@ from pathlib import Path
 import statistics
 
 import numpy as np
-from util import data_helper, graph_helper
 from solutions import SOLUTIONS_NAME_MAP
+from util import (
+    data_helper,
+    graph_helper,
+    result_format,
+    INSTANCE_NAME_MAP,
+)
 
 from pprint import pp, pprint
 
 
 def main(args: argparse.Namespace) -> None:
     number_executions = args.number_executions
-    instance_name = args.instance_name
+    instance_names = args.instance_names
     strategy_name = args.strategy
     output_dir = args.output_dir
 
-    problem = data_helper.load_problems(instance_name)
-    adjacency_mtrx = graph_helper.make_adjacency_matrix(problem)
+    for instance_name in instance_names:
+        problem = data_helper.load_problems(instance_name)
+        adjacency_mtrx = graph_helper.make_adjacency_matrix(problem)
 
-    timelimit = (
-        args.timelimit
-        if args.timelimit > 0
-        else 0.06 * problem.dimension
-    )
+        timelimit = (
+            args.timelimit
+            if args.timelimit > 0
+            else 0.06 * problem.dimension
+        )
 
-    strategy_kwargs = {
-        'timelimit': timelimit,
-    }
+        strategy_kwargs = {
+            'timelimit': timelimit,
+        }
 
-    history = []
-    for _ in range(number_executions):
-        hist_entry = _run(strategy_name, adjacency_mtrx, strategy_kwargs)
-        history.append(hist_entry)
+        history = []
+        for _ in range(number_executions):
+            hist_entry = _run(strategy_name, adjacency_mtrx, strategy_kwargs)
+            history.append(hist_entry)
 
-    write_report(history, output_dir, strategy_name, instance_name)
+        write_report(history, output_dir, strategy_name, instance_name)
+
+    result_format.assemble_results(output_dir)
 
 
 def _run(
@@ -72,7 +80,7 @@ def write_report(
 
             for h in history:
                 csv_writer.writerow([
-                    instance_name,
+                    INSTANCE_NAME_MAP.get(instance_name, ''),
                     strategy_name,
                     h[1],
                     '{:0.4f}'.format(h[2]),
@@ -102,9 +110,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-            '-i', '--instance-name',
-            help='Name of the file instance from National TSP',
-            default='wi29', dest='instance_name')
+            '-i', '--instance-names',
+            help='Names of instance files from National TSP',
+            default='wi29', nargs='+', dest='instance_names')
 
     parser.add_argument(
             '-n', '--number-executions',

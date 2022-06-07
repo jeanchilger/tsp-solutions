@@ -3,6 +3,7 @@ from .brute_force import BruteForce
 
 
 SOLUTIONS_NAME_MAP = {
+    "BTA": Random1,
     "random1": Random1,
     "random2": Random2,
     "brute-force": BruteForce,
