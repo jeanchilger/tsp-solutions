@@ -12,6 +12,12 @@ pip install -r requirements.txt
 
 ## Running
 
+**TL;DR**
+
+```
+python main.py -i dj38 qa194 uy734 wi29 zi929 -s BTA -n 10
+```
+
 The entry point of the program is the `main.py` file. There are a few options available:
 
 ```

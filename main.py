@@ -22,6 +22,8 @@ def main(args: argparse.Namespace) -> None:
     output_dir = args.output_dir
 
     for instance_name in instance_names:
+        print('Running for instance \'{}\''.format(instance_name))
+
         problem = data_helper.load_problems(instance_name)
         adjacency_mtrx = graph_helper.make_adjacency_matrix(problem)
 
@@ -43,6 +45,10 @@ def main(args: argparse.Namespace) -> None:
         write_report(history, output_dir, strategy_name, instance_name)
 
     result_format.assemble_results(output_dir)
+
+    result_format.copy_file(
+            output_dir / 'report.csv',
+            '..' / output_dir / 'resultados.csv')
 
 
 def _run(

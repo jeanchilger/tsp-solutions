@@ -1,9 +1,20 @@
+"""
+Utilities to formatting the results according 
+to the specified in the task
+"""
+
 import argparse
 import csv
-from pathlib import Path
+import shutil
 import statistics
+from pathlib import Path
+from typing import Union
 
-def assemble_results(results_path: str) -> None:
+
+PathOrStr = Union[str, Path]
+
+
+def assemble_results(results_path: PathOrStr) -> None:
     """
     Assembles the results from `results_path` into a single
     report file.
@@ -55,3 +66,16 @@ def assemble_results(results_path: str) -> None:
                         '{:0.3f}'.format(statistics.stdev(cost_history)),
                         '{:0.3f}'.format(statistics.mean(time_history)),
                     ])
+
+
+def copy_file(src_path: PathOrStr, dst_path: PathOrStr) -> None:
+    """
+    Copies a file from src_path to dst_path.
+
+    Args:
+        src_path (PathOrStr): _description_
+        dst_path (PathOrStr): _description_
+    """
+
+    shutil.copyfile(src_path, dst_path)    
+    
