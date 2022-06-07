@@ -37,6 +37,6 @@ You can type `python main.py --help` to get more information on the command line
 
 In this section the available solving algorithms (aka strategies) are explained.
 
-* **`random1`:** The `random1` strategy simply shuffles the nodes of the graph;
+* **`random1 | BTA`:** The `random1` (alias to `BTA`) strategy simply shuffles the nodes of the graph;
 * **`random2`:** The `random2` strategy builds the path by selecting randomically each node at a time;
 * **`brute-force`:** The `brute-force` strategy tries to explore all possible solutions and select the best;
