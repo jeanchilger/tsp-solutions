@@ -62,9 +62,9 @@ def assemble_results(results_path: PathOrStr) -> None:
                         instance_name,
                         'Jean',
                         algorithm,
-                        '{:0.3f}'.format(statistics.mean(cost_history)),
-                        '{:0.3f}'.format(statistics.stdev(cost_history)),
-                        '{:0.3f}'.format(statistics.mean(time_history)),
+                        '{:0d}'.format(round(statistics.mean(cost_history))),
+                        '{:0.2f}'.format(statistics.stdev(cost_history)),
+                        '{:0d}'.format(round(statistics.mean(time_history))),
                     ])
 
 
@@ -77,5 +77,5 @@ def copy_file(src_path: PathOrStr, dst_path: PathOrStr) -> None:
         dst_path (PathOrStr): _description_
     """
 
-    shutil.copyfile(src_path, dst_path)    
+    shutil.copy(src_path, dst_path)
     

@@ -1,6 +1,7 @@
 import argparse
 import csv
 from pathlib import Path
+import shutil
 import statistics
 
 import numpy as np
@@ -21,10 +22,13 @@ def main(args: argparse.Namespace) -> None:
     strategy_name = args.strategy
     output_dir = args.output_dir
 
+    if output_dir.exists():
+        shutil.rmtree(output_dir)
+
     for instance_name in instance_names:
         print('Running for instance \'{}\''.format(instance_name))
 
-        problem = data_helper.load_problems(instance_name)
+        problem = data_helper.load_problem(instance_name)
         adjacency_mtrx = graph_helper.make_adjacency_matrix(problem)
 
         timelimit = (
@@ -48,7 +52,7 @@ def main(args: argparse.Namespace) -> None:
 
     result_format.copy_file(
             output_dir / 'report.csv',
-            '..' / output_dir / 'resultados.csv')
+            'resultados.csv')
 
 
 def _run(
