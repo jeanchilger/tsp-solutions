@@ -46,6 +46,9 @@ def compute_path_cost(adjacency_matrix: np.ndarray, path: np.ndarray) -> int:
 
     cost = 0
 
+    if len(path) == len(adjacency_matrix):
+        path = np.concatenate([path, [path[0]]])
+
     for i in range(1, len(path)):
         cost += adjacency_matrix[path[i - 1], path[i]]
     
