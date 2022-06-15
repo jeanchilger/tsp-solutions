@@ -31,30 +31,38 @@ class BLMMsh(Solution):
         generated_path = initial_path.copy()
         generated_cost = None
 
-        for i in range(1, len(adjacency_matrix)):
-            for j in range(1, len(adjacency_matrix)):
-                
-                if time.time() - start_time > timelimit:
-                    break
+        while True:
+            initial_cost = current_cost
 
-                if i != j:
-                    # shifts j into i
-                    jth = current_path[j]
-                    generated_path = np.concatenate([
-                        self._get_list(current_path[:j]),
-                        self._get_list(current_path[j + 1:]),
-                    ])
+            for i in range(1, len(adjacency_matrix)):
+                for j in range(1, len(adjacency_matrix)):
+                    
+                    if time.time() - start_time > timelimit:
+                        break
 
-                    generated_path = np.insert(generated_path, i, jth)
+                    if i != j:
+                        # shifts j into i
+                        jth = current_path[j]
+                        generated_path = np.concatenate([
+                            self._get_list(current_path[:j]),
+                            self._get_list(current_path[j + 1:]),
+                        ])
 
-                    # conputes quality of generated_path
-                    generated_cost = self.evaluate(
-                            adjacency_matrix, generated_path)
+                        generated_path = np.insert(generated_path, i, jth)
 
-                    if generated_cost < current_cost:
-                        return self._solve(
-                                generated_path, adjacency_matrix,
-                                start_time, timelimit)
+                        # conputes quality of generated_path
+                        generated_cost = self.evaluate(
+                                adjacency_matrix, generated_path)
+
+                        if generated_cost < current_cost:
+                            current_path = generated_path.copy()
+                            current_cost = generated_cost
+                else:
+                    continue
+                break
+
+            if initial_cost == current_cost:
+                break
 
         return generated_path
     

@@ -31,25 +31,33 @@ class BLPM2opt(Solution):
         generated_path = initial_path.copy()
         generated_cost = None
 
-        for i in range(1, len(adjacency_matrix) - 1):
-            for j in range(i + 1, len(adjacency_matrix)):
-                
-                if time.time() - start_time > timelimit:
-                    break
+        while True:
+            initial_cost = current_cost
 
-                generated_path = np.concatenate([
-                    current_path[:i],
-                    np.flip(current_path[i:j + 1]),
-                    current_path[j + 1:],
-                ])
+            for i in range(1, len(adjacency_matrix) - 1):
+                for j in range(i + 1, len(adjacency_matrix)):
+                    if time.time() - start_time > timelimit:
+                        break
 
-                generated_cost = self.evaluate(
-                            adjacency_matrix, generated_path)
+                    generated_path = np.concatenate([
+                        current_path[:i],
+                        np.flip(current_path[i:j + 1]),
+                        current_path[j + 1:],
+                    ])
 
-                if generated_cost < current_cost:
-                    return self._solve(
-                            generated_path, adjacency_matrix,
-                            start_time, timelimit)
-        
+                    generated_cost = self.evaluate(
+                                adjacency_matrix, generated_path)
+
+                    if generated_cost < current_cost:
+                        current_path = generated_path.copy()
+                        current_cost = generated_cost
+                        break
+                else:
+                    continue
+                break
+            
+            if initial_cost == current_cost:
+                break
+            
         return generated_path
     
