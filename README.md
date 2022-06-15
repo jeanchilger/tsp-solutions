@@ -15,7 +15,7 @@ pip install -r requirements.txt
 **TL;DR**
 
 ```
-python main.py -i dj38 qa194 uy734 wi29 zi929 -s BTA -n 10
+python main.py -i dj38 qa194 uy734 wi29 zi929 -s BLPM2opt -n 10
 ```
 
 The entry point of the program is the `main.py` file. There are a few options available:
@@ -46,3 +46,7 @@ In this section the available solving algorithms (aka strategies) are explained.
 * **`random1 | BTA`:** The `random1` (alias to `BTA`) strategy simply shuffles the nodes of the graph;
 * **`random2`:** The `random2` strategy builds the path by selecting randomically each node at a time;
 * **`brute-force`:** The `brute-force` strategy tries to explore all possible solutions and select the best;
+* **`BLPMsh`:** Local search, using shift neighborhood with first improvement strategy;
+* **`BLMMsh`:** Local search, using shift neighborhood with best improvement strategy;
+* **`BLPM2opt`:** Local search, using 2-opt neighborhood with first improvement strategy;
+* **`BLMM2opt`:** Local search, using 2-opt neighborhood with best improvement strategy;
