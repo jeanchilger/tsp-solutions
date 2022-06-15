@@ -17,35 +17,44 @@ class BLPMsh(Solution):
 
         np.random.shuffle(initial_path)
 
-        return self._solve(initial_path, adjacency_matrix)
+        return self._solve(
+                initial_path, adjacency_matrix,
+                time.time(), timelimit)
     
     def _solve(
             self, initial_path: np.ndarray,
-            adjacency_matrix: np.ndarray) -> np.ndarray:
+            adjacency_matrix: np.ndarray,
+            start_time:int, timelimit: int) -> np.ndarray:
         current_path = initial_path.copy()
         current_cost = self.evaluate(adjacency_matrix, initial_path)
 
-        generated_path = None
+        generated_path = initial_path.copy()
         generated_cost = None
 
         for i in range(1, len(adjacency_matrix)):
             for j in range(1, len(adjacency_matrix)):
+                
+                if time.time() - start_time > timelimit:
+                    break
+
                 if i != j:
+                    # shifts j into i
+                    jth = current_path[j]
                     generated_path = np.concatenate([
-                        self._get_list(current_path[0: j]),
-                        self._get_list(current_path[j]),
+                        self._get_list(current_path[:j]),
                         self._get_list(current_path[j + 1:]),
                     ])
 
+                    generated_path = np.insert(generated_path, i, jth)
+
+                    # conputes quality of generated_path
                     generated_cost = self.evaluate(
                             adjacency_matrix, generated_path)
 
                     if generated_cost < current_cost:
-                        return self._solve(generated_path, adjacency_matrix)
-
-                    else:
-                        current_cost = generated_cost
-                        current_path = generated_path.copy()
+                        return self._solve(
+                                generated_path, adjacency_matrix,
+                                start_time, timelimit)
 
         return generated_path
     
