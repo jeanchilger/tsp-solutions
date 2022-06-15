@@ -1,2 +1,3 @@
 tsplib95
 numpy
+tqdm

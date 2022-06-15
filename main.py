@@ -5,6 +5,7 @@ import shutil
 import statistics
 
 import numpy as np
+from tqdm import tqdm
 from solutions import SOLUTIONS_NAME_MAP
 from util import (
     data_helper,
@@ -28,13 +29,12 @@ def main(args: argparse.Namespace) -> None:
     for instance_name in instance_names:
         print('Running for instance \'{}\''.format(instance_name))
 
-        problem = data_helper.load_problem(instance_name)
-        adjacency_mtrx = graph_helper.make_adjacency_matrix(problem)
+        adjacency_mtrx = data_helper.load_adjacency_matrix(instance_name)
 
         timelimit = (
             args.timelimit
             if args.timelimit > 0
-            else 0.06 * problem.dimension
+            else 0.06 * len(adjacency_mtrx)
         )
 
         strategy_kwargs = {
@@ -42,7 +42,7 @@ def main(args: argparse.Namespace) -> None:
         }
 
         history = []
-        for _ in range(number_executions):
+        for _ in tqdm(range(number_executions)):
             hist_entry = _run(strategy_name, adjacency_mtrx, strategy_kwargs)
             history.append(hist_entry)
 

@@ -1,6 +1,6 @@
 from .random import Random1, Random2
 from .brute_force import BruteForce
-from .local_search import BLPMsh, BLPM2opt
+from .local_search import BLPMsh, BLMMsh, BLPM2opt, BLMM2opt
 
 
 SOLUTIONS_NAME_MAP = {
@@ -9,5 +9,7 @@ SOLUTIONS_NAME_MAP = {
     "random2": Random2,
     "brute-force": BruteForce,
     "BLPMsh": BLPMsh,
+    "BLMMsh": BLMMsh,
     "BLPM2opt": BLPM2opt,
+    "BLMM2opt": BLMM2opt,
 }
