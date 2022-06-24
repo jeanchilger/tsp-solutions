@@ -122,16 +122,18 @@ if __name__ == '__main__':
     parser.add_argument(
             '-i', '--instance-names',
             help='Names of instance files from National TSP',
-            default='wi29', nargs='+', dest='instance_names')
+            default='dj38 qa194 uy734 wi29 zi929', nargs='+',
+            dest='instance_names')
 
     parser.add_argument(
             '-n', '--number-executions',
             help='Number of times to repeat experiments',
-            type=int, default=1, dest='number_executions')
+            type=int, default=10, dest='number_executions')
 
     parser.add_argument(
             '-s', '--strategy',
             help='Solving algorithm to use',
+            default='BT2opt',
             nargs='?', choices=[*SOLUTIONS_NAME_MAP.keys()],
             required=True, dest='strategy')
     

@@ -12,12 +12,6 @@ pip install -r requirements.txt
 
 ## Running
 
-**TL;DR**
-
-```
-python main.py -i dj38 qa194 uy734 wi29 zi929 -s BLPM2opt -n 10
-```
-
 The entry point of the program is the `main.py` file. There are a few options available:
 
 ```
@@ -50,3 +44,10 @@ In this section the available solving algorithms (aka strategies) are explained.
 * **`BLMMsh`:** Local search, using shift neighborhood with best improvement strategy;
 * **`BLPM2opt`:** Local search, using 2-opt neighborhood with first improvement strategy;
 * **`BLMM2opt`:** Local search, using 2-opt neighborhood with best improvement strategy;
+* **`BTsh`:** Tabu search using the shift neighborhoo;
+* **`BT2opt`:** Tabu search using the 2-opt neighborhood; with best improvement strategy;
+
+### About the neighborhoods
+
+* [Shift (node shift) neighborhood](http://tsp-basics.blogspot.com/2017/03/node-shift.html)
+* [2-opt neighborhood](http://tsp-basics.blogspot.com/2017/03/2-opt-move.html)
