@@ -1,6 +1,8 @@
 import numpy as np
 import tsplib95
 
+from util import graph_helper
+
 
 def load_problem(fname: str) -> tsplib95.models.StandardProblem:
     """
@@ -28,4 +30,8 @@ def load_adjacency_matrix(fname: str) -> np.ndarray:
         np.ndarray: _description_
     """
 
-    return np.loadtxt('matrixes/{}'.format(fname))
+    try:
+        return np.loadtxt('matrixes/{}'.format(fname))
+    
+    except Exception:
+        return graph_helper.make_adjacency_matrix(load_problem(fname))
