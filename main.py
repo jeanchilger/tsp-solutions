@@ -39,6 +39,7 @@ def main(args: argparse.Namespace) -> None:
 
         strategy_kwargs = {
             'timelimit': timelimit,
+            'tenure': args.bt_tenure,
         }
 
         history = []
@@ -122,7 +123,7 @@ if __name__ == '__main__':
     parser.add_argument(
             '-i', '--instance-names',
             help='Names of instance files from National TSP',
-            default='dj38 qa194 uy734 wi29 zi929', nargs='+',
+            default=['dj38', 'qa194', 'uy734', 'wi29', 'zi929'], nargs='+',
             dest='instance_names')
 
     parser.add_argument(
@@ -135,7 +136,7 @@ if __name__ == '__main__':
             help='Solving algorithm to use',
             default='BT2opt',
             nargs='?', choices=[*SOLUTIONS_NAME_MAP.keys()],
-            required=True, dest='strategy')
+            dest='strategy')
     
     parser.add_argument(
             '-t', '--timelimit',
@@ -147,6 +148,12 @@ if __name__ == '__main__':
             '-o', '--output-dir',
             help='Path where to save the output files',
             type=Path, default='results/', dest='output_dir')
+
+    # Specific tabu search arguments
+    parser .add_argument(
+            '--bt-tenure',
+            help='Tenure for tabu search',
+            type=int, default=2, dest='bt_tenure')
 
     args, _ = parser.parse_known_args()
 
