@@ -38,7 +38,6 @@ class BT2opt(Solution):
 
         while True:
             if time.time() - start_time > timelimit:
-                print('stopping due to time')
                 break
 
             generated_path = self._get_valid_neighbor(
@@ -109,6 +108,8 @@ class BT2opt(Solution):
                 if neighbor_cost < best_cost:
                     best_path = neighbor_path.copy()
                     best_cost = neighbor_cost
+                    current_path = neighbor_path.copy()
+                    current_cost = neighbor_cost
                     continue
 
                 if (neighbor_cost < current_cost and 

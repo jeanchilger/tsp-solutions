@@ -153,7 +153,7 @@ if __name__ == '__main__':
     parser .add_argument(
             '--bt-tenure',
             help='Tenure for tabu search',
-            type=int, default=2, dest='bt_tenure')
+            type=int, default=-1, dest='bt_tenure')
 
     args, _ = parser.parse_known_args()
 
