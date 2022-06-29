@@ -36,10 +36,16 @@ def main(args: argparse.Namespace) -> None:
             if args.timelimit > 0
             else 0.06 * len(adjacency_mtrx)
         )
+        
+        tenure = (
+            args.bt_tenure
+            if args.bt_tenure > 0
+            else int(len(adjacency_mtrx) / 5)
+        )
 
         strategy_kwargs = {
             'timelimit': timelimit,
-            'tenure': args.bt_tenure,
+            'tenure': tenure,
         }
 
         history = []
