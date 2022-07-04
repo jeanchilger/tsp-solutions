@@ -140,7 +140,7 @@ if __name__ == '__main__':
     parser.add_argument(
             '-s', '--strategy',
             help='Solving algorithm to use',
-            default='BT2opt',
+            default='BCGa',
             nargs='?', choices=[*SOLUTIONS_NAME_MAP.keys()],
             dest='strategy')
     

@@ -2,6 +2,8 @@ from .random import Random1, Random2
 from .brute_force import BruteForce
 from .local_search import BLPMsh, BLMMsh, BLPM2opt, BLMM2opt
 from .tabu_search import BTsh, BT2opt
+from .greedy_search import BCGa
+
 
 
 SOLUTIONS_NAME_MAP = {
@@ -15,4 +17,5 @@ SOLUTIONS_NAME_MAP = {
     'BLMM2opt': BLMM2opt,
     'BTsh': BTsh,
     'BT2opt': BT2opt,
+    'BCGa': BCGa,
 }
