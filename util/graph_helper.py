@@ -1,4 +1,5 @@
 from pprint import pprint
+from typing import Any
 import tsplib95
 import numpy as np
 
@@ -86,28 +87,62 @@ def compute_mst(adjacency_matrix: np.ndarray) -> np.ndarray:
         _disjoint_set_make_set(ds_parent, ds_size, i)
 
     for edge in edge_list:
-        if (_disjoint_set_find(ds_parent, ds_size, edge[0]) != 
-                _disjoint_set_find(ds_parent, ds_size, edge[1])):
+        if (_disjoint_set_find(ds_parent, edge[0]) != 
+                _disjoint_set_find(ds_parent, edge[1])):
             mst.append(edge)
             _disjoint_set_union(ds_parent, ds_size, edge[0], edge[1])
 
     return mst
 
-# Disjoint Set
-def _disjoint_set_make_set(parent, size, x):
+
+# Disjoint Set function
+def _disjoint_set_make_set(parent: list, size: list, x: int) -> None:
+    """
+    Creates a new disjoint set for the given element x.
+
+    Args:
+        parent (list): List of parents for disjoint set.
+        size (list): List of sizes of sets.
+        x (int): Element to be created.
+    """
+
     parent[x] = x
     size[x] = 1
 
-def _disjoint_set_find(parent, size, x):
+
+def _disjoint_set_find(parent: list, x: int) -> int:
+    """
+    Returns the parent (set representative) of the given
+    element. Uses path halving.
+
+    Args:
+        parent (list): List of parents for disjoint set.
+        x (int): Element to get the parent of.
+
+    Returns:
+        int: The parent of x.
+    """
+
     while parent[x] != x:
         parent[x] = parent[parent[x]]
         x = parent[x]
 
     return parent[x]
 
-def _disjoint_set_union(parent, size, x, y):
-    x_root = _disjoint_set_find(parent, size, x)
-    y_root = _disjoint_set_find(parent, size, y)
+
+def _disjoint_set_union(parent: list, size: list, x: int, y: int) -> None:
+    """
+    Unites the elements x and y into a single set.
+
+    Args:
+        parent (list): List of parents for disjoint set.
+        size (list): List of sizes of sets.
+        x (int): Element to be united.
+        y (int): Element to be united.
+    """
+
+    x_root = _disjoint_set_find(parent, x)
+    y_root = _disjoint_set_find(parent, y)
 
     if x_root == y_root:
         return
@@ -119,3 +154,19 @@ def _disjoint_set_union(parent, size, x, y):
     else:
         parent[x_root] = y_root
         size[y_root] += size[x_root]
+
+
+def find_maximum_matching(adjacency_matrix: np.ndarray) -> np.ndarray:
+    matching = np.zeros(adjacency_matrix.shape)
+
+    augmenting_path = _find_augmenting_path(adjacency_matrix, matching)
+    # if augmenting_path is not empty add it fo matching, and compute again
+    # else return  matching
+
+
+def _find_augmenting_path(
+        adjacency_matrix: np.ndarray, matching: np.ndarray) -> np.ndarray:
+
+    # compute blossoms
+    # contract blossoms
+    return matching

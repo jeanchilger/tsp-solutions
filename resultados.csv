@@ -1,6 +1,6 @@
 instancia,autoria,algoritmo,q-medio,q-desvio,t-medio
-Qatar,Jean,BT2opt,10202,144.91,13
-Western Sahara,Jean,BT2opt,28423,540.46,2
-Uruguay,Jean,BT2opt,132870,4259.63,91
-Zimbabwe,Jean,BT2opt,158433,4307.33,184
-Djibouti,Jean,BT2opt,6918,252.56,2
+Djibouti,Jean,BCGa,12394,311.13,2
+Western Sahara,Jean,BCGa,40745,1193.73,2
+Zimbabwe,Jean,BCGa,892108,7217.51,56
+Uruguay,Jean,BCGa,731758,3570.64,44
+Qatar,Jean,BCGa,37790,601.77,12
