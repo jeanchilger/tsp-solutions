@@ -53,3 +53,69 @@ def compute_path_cost(adjacency_matrix: np.ndarray, path: np.ndarray) -> int:
         cost += adjacency_matrix[path[i - 1], path[i]]
     
     return cost
+
+
+def compute_mst(adjacency_matrix: np.ndarray) -> np.ndarray:
+    """
+    Computes the minimum spanning tree for 
+    the graph representated by adjacency_matrix, using
+    Kruskal's algorithm.
+
+    Args:
+        adjacency_matrix (np.ndarray): Adjacency matrix
+            representation of graph
+
+    Returns:
+        np.ndarray: Minimum spanning tree.
+    """
+
+    ds_parent = [None] * len(adjacency_matrix)
+    ds_size = [None] * len(adjacency_matrix)
+
+    mst = []
+
+    edge_list = []
+    for i in range(len(adjacency_matrix)):
+        for j in range(i + 1, len(adjacency_matrix)):
+            if adjacency_matrix[i][j] > 0:
+                edge_list.append((i, j, adjacency_matrix[i][j]))
+    
+    edge_list = sorted(edge_list, key=lambda x: x[2])
+
+    for i in range(len(adjacency_matrix)):
+        _disjoint_set_make_set(ds_parent, ds_size, i)
+
+    for edge in edge_list:
+        if (_disjoint_set_find(ds_parent, ds_size, edge[0]) != 
+                _disjoint_set_find(ds_parent, ds_size, edge[1])):
+            mst.append(edge)
+            _disjoint_set_union(ds_parent, ds_size, edge[0], edge[1])
+
+    return mst
+
+# Disjoint Set
+def _disjoint_set_make_set(parent, size, x):
+    parent[x] = x
+    size[x] = 1
+
+def _disjoint_set_find(parent, size, x):
+    while parent[x] != x:
+        parent[x] = parent[parent[x]]
+        x = parent[x]
+
+    return parent[x]
+
+def _disjoint_set_union(parent, size, x, y):
+    x_root = _disjoint_set_find(parent, size, x)
+    y_root = _disjoint_set_find(parent, size, y)
+
+    if x_root == y_root:
+        return
+
+    if size[x_root] > size[y_root]:
+        parent[y_root] = x_root
+        size[x_root] += size[y_root]
+    
+    else:
+        parent[x_root] = y_root
+        size[y_root] += size[x_root]
